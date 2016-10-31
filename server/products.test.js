@@ -24,9 +24,10 @@ describe('/api/products', () => {
 
   before('sync database & make products', () =>
     db.didSync
-      .then(() => Product.destroy({truncate: true}))
+      .then(() => Product.destroy({where:{}}))
       .then(() => products.map(
-        product => Product.create(product)))
+        product => Product.create(product)
+      ))
   )
 
 
@@ -35,12 +36,15 @@ describe('/api/products', () => {
       .get(`/api/products`)
       .expect(200)
       .then(res => {
+        //console.log(res.body)
         expect(res.body).to.have.length(products.length)
         const [
           gotWaterfall,
           gotPuzzleBox,
           gotCavern ] = res.body
         expect(gotWaterfall).to.contain(waterfall)
+        expect(gotPuzzleBox).to.contain(puzzleBox)
+        expect(gotCavern).to.contain(cavern)
       })
   )
 
