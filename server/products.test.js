@@ -36,7 +36,6 @@ describe('/api/products', () => {
       .get(`/api/products`)
       .expect(200)
       .then(res => {
-        //console.log(res.body)
         expect(res.body).to.have.length(products.length)
         const [
           gotWaterfall,
